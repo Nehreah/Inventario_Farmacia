@@ -1,5 +1,5 @@
 #include "Inventario.h"
-#include "Model.h"
+#include "Modelo.h"
 #include "Vista.h"
 #include <string>
 #include <iostream>
@@ -14,7 +14,7 @@ int main() {
   system("clear");//"system("clear");" limpia la consola
   int eleccion=-1;//en -1 para liberar la opción 0 como salida del programa y los naturales como opciones.
   Inventario catalogo;//Inicio un objeto catalogo
-  Model modelo;//Inicio un objeto de modelo
+  Modelo modelo;//Inicio un objeto de modelo
   Vista ver;//Inicio un objeto de visión
   modelo.cargarArchivo(catalogo);
   

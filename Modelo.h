@@ -7,7 +7,7 @@
 #include "Inventario.h"
 #include "Medicamento.h"
 
-class Model{
+class Modelo{
 private:
 
 std::string nombreArchivo;
@@ -16,10 +16,10 @@ std::string nombreArchivo;
 
 public:
 
-MMedicamentos();
+Modelo();
 void cargarArchivo(Inventario& auxCatalogo);
-void guardarArchivo(const Inventario& auxCatalogo);
-void actualizarArchivo(const Inventario& auxCatalogo);
+void guardarArchivo(Inventario& auxCatalogo);
+void actualizarArchivo(Inventario& auxCatalogo);
 void agregarMedicamento(Inventario& auxCatalogo);
 void cambiarCantidad(Inventario& auxCatalogo,int ID,int cantidad);
 

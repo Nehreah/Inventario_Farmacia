@@ -34,16 +34,11 @@ Medicamento Inventario::getMedicamento(int IDBuscado) const{
     return Medicamento();
 }
 
-
-std::vector <Medicamento> Inventario::getInventario() const{
-    if(!(medicamentos.empty())){
-      return medicamentos;
-    }
-    else{
-      std::cout<<"No hay nada en el inventario"<<std::endl;
-      return medicamentos;
-    }
+Medicamento Inventario::getMedicamento(std::string i) const{
+      return medicamentos[std::stoi(i)];
 }
+
+
 
 void Inventario::eliminarMedicamento(int IDBuscado){
   int contador = 0;
@@ -58,6 +53,7 @@ void Inventario::eliminarMedicamento(int IDBuscado){
   }
 }
 
+
 bool Inventario::cambiarCantidad(int IDBuscado, int cantidad){//cambiarlo a booleano
     for(int i = 0; i< medicamentos.size(); i++){
       if (medicamentos[i].getIDMedicamento() == IDBuscado){
@@ -70,4 +66,8 @@ bool Inventario::cambiarCantidad(int IDBuscado, int cantidad){//cambiarlo a bool
     return false;
 }
 
+
+int Inventario::getSize(){
+  return medicamentos.size();
+}
 

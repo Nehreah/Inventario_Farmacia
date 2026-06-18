@@ -3,7 +3,7 @@
 #include <sstream>
 #include "Inventario.h"
 #include "Medicamento.h"
-#include "Model.h"
+#include "Modelo.h"
 
 #include <iostream>
 #include <chrono>
@@ -14,10 +14,10 @@
 
 
 
-Model::MMedicamentos(){
+Modelo::Modelo(){
 }
 
-void Model::cargarArchivo(Inventario& auxCatalogo){//Extrae lineas de un archivo, y las asigna a las variables locales. Luego se crea un objeto con estos parámetros locales. al final agrega el objeto a un inventario.
+void Modelo::cargarArchivo(Inventario& auxCatalogo){//Extrae lineas de un archivo, y las asigna a las variables locales. Luego se crea un objeto con estos parámetros locales. al final agrega el objeto a un inventario.
   std::string nombre;
   std::string presentacion;
   std::string fecha;
@@ -50,7 +50,7 @@ void Model::cargarArchivo(Inventario& auxCatalogo){//Extrae lineas de un archivo
   archivo.close();
 }
 
-void Model::guardarArchivo(const Inventario& auxCatalogo){
+void Modelo::guardarArchivo(Inventario& auxCatalogo){
   std::string nombre;
   std::string presentacion;
   std::string fecha;
@@ -59,8 +59,9 @@ void Model::guardarArchivo(const Inventario& auxCatalogo){
   double precio;
   int ID;
   std::ofstream archivo("data.txt",std::ios::app);//Inicializa el archivo y esto le dice a la app que no sobrescriba el archivo y mantenga todo lo que tiene dentro.
-  std::vector <Medicamento> auxInventario = auxCatalogo.getInventario();//asigna el inventario de la clase u objeto, a un vector local.
-  for(const auto &med: auxInventario){//dejo que pase todo el for para que itere hasta el final del vector o inventario.
+  int size = auxCatalogo.getSize();
+  for(int i = 0; i < size; i++){//dejo que pase todo el for para que itere hasta el final del vector o inventario.
+    Medicamento med =  auxCatalogo.getMedicamento(std::to_string(i));
     nombre = med.getNombreMedicamento();
     presentacion = med.getPresentacionMedicamento();
     cantidad = med.getCantidadMedicamento();
@@ -76,7 +77,7 @@ void Model::guardarArchivo(const Inventario& auxCatalogo){
 
 
 
-void Model::actualizarArchivo(const Inventario& auxCatalogo){
+void Modelo::actualizarArchivo(Inventario& auxCatalogo){
   std::string nombre;
   std::string presentacion;
   std::string fecha;
@@ -85,8 +86,9 @@ void Model::actualizarArchivo(const Inventario& auxCatalogo){
   double precio;
   int ID;
   std::ofstream archivo("data.txt");//Acá no abro el archivo con std::ios::app por lo que este sí va a sobrescribir todo adentro.
-  std::vector <Medicamento> auxInventario = auxCatalogo.getInventario();
-  for(const auto &med: auxInventario){//este tipo de for está hecho para vectores u objetos o clases con con métodos begin() y end(). Crea una referencia "&med" a un objeto del vector auxInventario. 
+  int size = auxCatalogo.getSize();
+  for(int i = 0; i < size; i++){//dejo que pase todo el for para que itere hasta el final del vector o inventario.
+    Medicamento med =  auxCatalogo.getMedicamento(std::to_string(i));    
     nombre = med.getNombreMedicamento();
     presentacion = med.getPresentacionMedicamento();
     cantidad = med.getCantidadMedicamento();
@@ -101,7 +103,7 @@ void Model::actualizarArchivo(const Inventario& auxCatalogo){
 
 
 
-void Model::agregarMedicamento(Inventario& auxCatalogo){
+void Modelo::agregarMedicamento(Inventario& auxCatalogo){
   std::string nombre;
   std::string presentacion;
   std::string fecha;
@@ -140,6 +142,6 @@ void Model::agregarMedicamento(Inventario& auxCatalogo){
 
 
 
-void Model::cambiarCantidad(Inventario& auxCatalogo,int ID,int cantidad){   
+void Modelo::cambiarCantidad(Inventario& auxCatalogo,int ID,int cantidad){   
   auxCatalogo.cambiarCantidad(ID,cantidad);
 }

@@ -1,6 +1,6 @@
 #ifndef VISTA_H
 #define VISTA_H
-#include "Model.h"
+#include "Modelo.h"
 
 class Vista {
 
@@ -13,7 +13,7 @@ void imprimirEliminar();
 void imprimirBuscar();
 void imprimirInventario();
 void imprimirCantidad();
-void mostrarInventario(const Inventario& auxCatalogo) const;
+void mostrarInventario( Inventario& auxCatalogo) ;
 void imprimirMedicamento(const Inventario& auxCatalogo, int ID);
 
 

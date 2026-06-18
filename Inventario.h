@@ -20,7 +20,7 @@ Inventario ();
 //getters
 std::string getFecha() const;
 Medicamento getMedicamento(int IDBuscado) const;
-std::vector <Medicamento> getInventario() const;//<std::vector Medicamento> así retorna todo el vector
+Medicamento getMedicamento(std::string i) const;
 
 
 //setters
@@ -28,6 +28,8 @@ void agregarMedicamento(const Medicamento& auxMedicamento);
 void setFecha(const std::string& auxFecha);
 void eliminarMedicamento(int IDBuscado);
 bool cambiarCantidad(int IDBuscado, int cantidad);
+int getSize();
+
 
 };
 

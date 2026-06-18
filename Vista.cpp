@@ -1,5 +1,5 @@
 #include "Vista.h"
-#include "Model.h"
+#include "Modelo.h"
 #include "Medicamento.h"
 #include <iostream>
 
@@ -78,65 +78,66 @@ std::cout<<R"(
 }
 
 
-void Vista::mostrarInventario(const Inventario& auxCatalogo) const{
+void Vista::mostrarInventario( Inventario& auxCatalogo) {
         std::string titulos[6]={"Nombre","ID","Presentación","Cantidad","Costo","Precio"};
         std::cout<<"El catalogo es: "<<
         std::endl;
-        if(!(auxCatalogo.getInventario().empty())){
-          std::vector <Medicamento> auxInventario = auxCatalogo.getInventario();//Trae el inventario a un vector local
-        std::cout<<"----------------------------------------------------------------------------------------------------------------------------------\t"<<std::endl;
-        for(int i = 0; i < 6;i++){
-          std::cout<<"\t"<<titulos[i]<<"\t | ";
-        }
-        std::cout<<std::endl;
-        std::cout<<"----------------------------------------------------------------------------------------------------------------------------------\t"<<std::endl;
-           
-        for (const auto &med: auxInventario){
-	    //Algunos cout tienen if, que depende que tan grande sea la palabra, imprime diferente para mantener la integridad de la tabla/matriz
-	    if(med.getNombreMedicamento().size() > 7){
-	      std::cout<<"\t"<<med.getNombreMedicamento()<<" | ";
+ 
+          std::cout<<"----------------------------------------------------------------------------------------------------------------------------------\t"<<std::endl;
+          
+          for(int i = 0; i < 6;i++){
+            std::cout<<"\t"<<titulos[i]<<"\t | ";
+          }
+          std::cout<<std::endl;
+          std::cout<<"----------------------------------------------------------------------------------------------------------------------------------\t"<<std::endl;
+        
+          int size = auxCatalogo.getSize();
+          for (int i = 0; i < size; i++ ){
+              
+	      //Algunos cout tienen if, que depende que tan grande sea la palabra, imprime diferente para mantener la integridad de la tabla/matriz
+	      if(auxCatalogo.getMedicamento(std::to_string(i)).getNombreMedicamento().size() > 7){
+	        std::cout<<"\t"<<auxCatalogo.getMedicamento(std::to_string(i)).getNombreMedicamento()<<" | ";
 	      }
-	    else{
-	      std::cout<<"\t"<<med.getNombreMedicamento()<<"\t | ";
+	      else{
+	        std::cout<<"\t"<<auxCatalogo.getMedicamento(std::to_string(i)).getNombreMedicamento()<<"\t | ";
 	      }
 
-            std::cout<<"\t"<<med.getIDMedicamento()<<"\t | ";
-            
-            if(med.getPresentacionMedicamento().size() > 7){
-	      std::cout<<"\t"<<med.getPresentacionMedicamento()<<"\t | ";
+              std::cout<<"\t"<<auxCatalogo.getMedicamento(std::to_string(i)).getIDMedicamento()<<"\t | ";
+              
+              if(auxCatalogo.getMedicamento(std::to_string(i)).getPresentacionMedicamento().size() > 7){
+	        std::cout<<"\t"<<auxCatalogo.getMedicamento(std::to_string(i)).getPresentacionMedicamento()<<"\t | ";
 	      }
-	    else{
-	      std::cout<<"\t"<<med.getPresentacionMedicamento()<<"\t\t | ";;
+	      else{
+	        std::cout<<"\t"<<auxCatalogo.getMedicamento(std::to_string(i)).getPresentacionMedicamento()<<"\t\t | ";;
 	      }
-            
-            std::cout<<"\t"<<med.getCantidadMedicamento()<<"\t\t | ";
-            
-            std::cout<<"\t"<<med.getCostoCompraMedicamento()<<"\t | ";
-            
-            std::cout<<"\t"<<med.getPrecioVentaMedicamento()<<"\t | "<<std::endl;
+              
+              std::cout<<"\t"<<auxCatalogo.getMedicamento(std::to_string(i)).getCantidadMedicamento()<<"\t\t | ";
+              
+              std::cout<<"\t"<<auxCatalogo.getMedicamento(std::to_string(i)).getCostoCompraMedicamento()<<"\t | ";
+              
+              std::cout<<"\t"<<auxCatalogo.getMedicamento(std::to_string(i)).getPrecioVentaMedicamento()<<"\t | "<<std::endl;
           
           }
         std::cout<<"----------------------------------------------------------------------------------------------------------------------------------\t"<<std::endl;
         std::cout<<"Actualizado el: "<<auxCatalogo.getFecha()<<std::endl;
-        }
 }
         
 void Vista::imprimirMedicamento(const Inventario& auxCatalogo, int ID){
         Medicamento med = auxCatalogo.getMedicamento(ID);//Busca un medicamento según un ID dado, y trae sus datos
         if(!(med.getNombreMedicamento()=="")){//La condición evita imprimir un objeto med vacío
-        std::cout<<std::endl;
-        std::cout<<"_______________________"<<std::endl<<std::endl;
-        std::cout<<"Nombre: ";
-        std::cout<<"\t"<<med.getNombreMedicamento()<<std::endl;
-        std::cout<<"Presentación: ";
-        std::cout<<"\t"<<med.getPresentacionMedicamento()<<std::endl;
-        std::cout<<"Cantidad: ";
-        std::cout<<"\t"<<med.getCantidadMedicamento()<<std::endl;
-        std::cout<<"Costo: ";
-        std::cout<<"\t\t"<<med.getCostoCompraMedicamento()<<std::endl;
-        std::cout<<"Venta: ";
-        std::cout<<"\t\t"<<med.getPrecioVentaMedicamento()<<std::endl;
-        std::cout<<"________________________"<<std::endl;
+          std::cout<<std::endl;
+          std::cout<<"_______________________"<<std::endl<<std::endl;
+          std::cout<<"Nombre: ";
+          std::cout<<"\t"<<med.getNombreMedicamento()<<std::endl;
+          std::cout<<"Presentación: ";
+          std::cout<<"\t"<<med.getPresentacionMedicamento()<<std::endl;
+          std::cout<<"Cantidad: ";
+          std::cout<<"\t"<<med.getCantidadMedicamento()<<std::endl;
+          std::cout<<"Costo: ";
+          std::cout<<"\t\t"<<med.getCostoCompraMedicamento()<<std::endl;
+          std::cout<<"Venta: ";
+          std::cout<<"\t\t"<<med.getPrecioVentaMedicamento()<<std::endl;
+          std::cout<<"________________________"<<std::endl;
         }
 }
 
