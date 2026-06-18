@@ -11,17 +11,19 @@ class Modelo{
 private:
 
 std::string nombreArchivo;
+Inventario catalogo;
 
 
 
 public:
 
 Modelo();
-void cargarArchivo(Inventario& auxCatalogo);
-void guardarArchivo(Inventario& auxCatalogo);
-void actualizarArchivo(Inventario& auxCatalogo);
-void agregarMedicamento(Inventario& auxCatalogo);
-void cambiarCantidad(Inventario& auxCatalogo,int ID,int cantidad);
+void cargarArchivo();
+void guardarArchivo();
+void actualizarArchivo();
+void agregarMedicamento();
+void cambiarCantidad(int ID,int cantidad);
+Inventario& getCatalogo();
 
 };
 

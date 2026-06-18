@@ -17,7 +17,7 @@
 Modelo::Modelo(){
 }
 
-void Modelo::cargarArchivo(Inventario& auxCatalogo){//Extrae lineas de un archivo, y las asigna a las variables locales. Luego se crea un objeto con estos parámetros locales. al final agrega el objeto a un inventario.
+void Modelo::cargarArchivo(){//Extrae lineas de un archivo, y las asigna a las variables locales. Luego se crea un objeto con estos parámetros locales. al final agrega el objeto a un inventario.
   std::string nombre;
   std::string presentacion;
   std::string fecha;
@@ -42,15 +42,15 @@ void Modelo::cargarArchivo(Inventario& auxCatalogo){//Extrae lineas de un archiv
       getline(med,aux,',');
       ID = std::stoi(aux);
       getline(med,fecha,',');
-      auxCatalogo.setFecha(fecha);
+      catalogo.setFecha(fecha);
       Medicamento droga(nombre, presentacion, cantidad, costo, precio, ID);//Crea objeto
-      auxCatalogo.agregarMedicamento(droga);//Agrega objeto al catalogo
+      catalogo.agregarMedicamento(droga);//Agrega objeto al catalogo
   }
   
   archivo.close();
 }
 
-void Modelo::guardarArchivo(Inventario& auxCatalogo){
+void Modelo::guardarArchivo(){
   std::string nombre;
   std::string presentacion;
   std::string fecha;
@@ -59,9 +59,9 @@ void Modelo::guardarArchivo(Inventario& auxCatalogo){
   double precio;
   int ID;
   std::ofstream archivo("data.txt",std::ios::app);//Inicializa el archivo y esto le dice a la app que no sobrescriba el archivo y mantenga todo lo que tiene dentro.
-  int size = auxCatalogo.getSize();
-  for(int i = 0; i < size; i++){//dejo que pase todo el for para que itere hasta el final del vector o inventario.
-    Medicamento med =  auxCatalogo.getMedicamento(std::to_string(i));
+  int size = catalogo.getSize();
+  for(int i = 0; i < size; i++){//dejo que pase todo el for para que itere hasta el final del vector o inventario. cuando llegué al final, ese será el único medicamento que actualizará.
+    Medicamento med =  catalogo.getMedicamento(std::to_string(i));
     nombre = med.getNombreMedicamento();
     presentacion = med.getPresentacionMedicamento();
     cantidad = med.getCantidadMedicamento();
@@ -69,7 +69,7 @@ void Modelo::guardarArchivo(Inventario& auxCatalogo){
     precio = med.getPrecioVentaMedicamento();
     ID = med.getIDMedicamento();
     }//final
-  fecha = auxCatalogo.getFecha();//extrae una fecha
+  fecha = catalogo.getFecha();//extrae una fecha
   archivo<<nombre<<","<<presentacion<<","<<cantidad<<","<<costo<<","<<precio<<","<<ID<<","<<fecha<<std::endl;//Agrega ahora sí a archivo, los datos del final del vector o inventario. Actualizando el archivo.
   archivo.close();//finaliza el archivo
 }
@@ -77,7 +77,7 @@ void Modelo::guardarArchivo(Inventario& auxCatalogo){
 
 
 
-void Modelo::actualizarArchivo(Inventario& auxCatalogo){
+void Modelo::actualizarArchivo(){
   std::string nombre;
   std::string presentacion;
   std::string fecha;
@@ -86,16 +86,16 @@ void Modelo::actualizarArchivo(Inventario& auxCatalogo){
   double precio;
   int ID;
   std::ofstream archivo("data.txt");//Acá no abro el archivo con std::ios::app por lo que este sí va a sobrescribir todo adentro.
-  int size = auxCatalogo.getSize();
+  int size = catalogo.getSize();
   for(int i = 0; i < size; i++){//dejo que pase todo el for para que itere hasta el final del vector o inventario.
-    Medicamento med =  auxCatalogo.getMedicamento(std::to_string(i));    
+    Medicamento med =  catalogo.getMedicamento(std::to_string(i));    
     nombre = med.getNombreMedicamento();
     presentacion = med.getPresentacionMedicamento();
     cantidad = med.getCantidadMedicamento();
     costo = med.getCostoCompraMedicamento();
     precio = med.getPrecioVentaMedicamento();
     ID = med.getIDMedicamento();
-    fecha = auxCatalogo.getFecha();
+    fecha = catalogo.getFecha();
     archivo<<nombre<<","<<presentacion<<","<<cantidad<<","<<costo<<","<<precio<<","<<ID<<","<<fecha<<std::endl;
   }
   archivo.close();
@@ -103,7 +103,7 @@ void Modelo::actualizarArchivo(Inventario& auxCatalogo){
 
 
 
-void Modelo::agregarMedicamento(Inventario& auxCatalogo){
+void Modelo::agregarMedicamento(){
   std::string nombre;
   std::string presentacion;
   std::string fecha;
@@ -131,17 +131,22 @@ void Modelo::agregarMedicamento(Inventario& auxCatalogo){
   std::cin>>precio;
   
   Medicamento droga(nombre, presentacion, cantidad, costo, precio, ID);
-  auxCatalogo.agregarMedicamento(droga);
+  catalogo.agregarMedicamento(droga);
   
   std::cout<<"Fecha de actualización: "<<std::endl;
   std::cin.ignore();
   std::getline(std::cin,fecha);
-  auxCatalogo.setFecha(fecha);
+  catalogo.setFecha(fecha);
 }
 
 
 
 
-void Modelo::cambiarCantidad(Inventario& auxCatalogo,int ID,int cantidad){   
-  auxCatalogo.cambiarCantidad(ID,cantidad);
+void Modelo::cambiarCantidad(int ID,int cantidad){   
+  catalogo.cambiarCantidad(ID,cantidad);
 }
+
+Inventario& Modelo::getCatalogo(){
+  return catalogo;
+}
+

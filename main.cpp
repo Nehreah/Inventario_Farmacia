@@ -3,6 +3,7 @@
 #include "Vista.h"
 #include <string>
 #include <iostream>
+#include "Controller.h"
 
 
 
@@ -11,102 +12,53 @@ Acá en el main únicamente hay lo necesario, todas las funciones y métodos, es
 */
 
 int main() {
-  system("clear");//"system("clear");" limpia la consola
-  int eleccion=-1;//en -1 para liberar la opción 0 como salida del programa y los naturales como opciones.
-  Inventario catalogo;//Inicio un objeto catalogo
-  Modelo modelo;//Inicio un objeto de modelo
+  #ifdef _WIN32
+      system("cls");
+  #else
+      system("clear");
+  #endif
+  
+  Modelo modelo;//Inicio un objeto Modelo
   Vista ver;//Inicio un objeto de visión
-  modelo.cargarArchivo(catalogo);
-  
+  modelo.cargarArchivo();
+  Controller control(modelo, ver);
+  int eleccion;
 
-
-  
-  
   while(!(eleccion==0)){
-    ver.mostrarTituloConNieve();
-                              
-                              
-    std::cout<<R"(
-                                        Seleccione la opción deseada:
-                                        1. Agregar medicamento a inventario.
-                                        2. Eliminar medicamento del inventario.
-                                        3. Buscar medicamento del inventario.
-                                        4. Mostrar todo el inventario.
-                                        5. Cambiar cantidad de algún medicamento.
-                                        0. Salir.)"<<std::endl;
-    std::cin>>eleccion;
+    eleccion = control.menu(eleccion);
     if (eleccion == 0){
       std::cout<<"El programa se cerrará"<<std::endl;
       return 0;
     }
+    
     else if (eleccion >0 && eleccion <= 5){
       
       switch(eleccion){//Para hacer funcionar el tablero de opciones. Cada case es una opción, encierra en llaves para mantener las variables contenidas {};
       
-      
           case 1:{
-            system("clear");
-            ver.imprimirAgregar();//Muestra un titulo grande que dice "Agregar"
-            std::cin.ignore();//Ignora una entrada de teclado
-            modelo.agregarMedicamento(catalogo);//Agrega un medicamento al catalogo/inventario
-            modelo.guardarArchivo(catalogo);//Agrega la nueva línea de medicamento al txt
+            control.agregarMedicamento();
             break;
           }
-
-
 
           case 2:{
-            system("clear");
-            ver.imprimirEliminar();//imprime titulo
-            std::cin.ignore();
-            int ID;
-            std::cout<<"Ingrese el ID del medicamento que desea buscar y eliminar"<<std::endl;
-            std::cin>>ID;
-            std::cout<<"Se ha eliminado el medicamento: "<<std::endl;
-            ver.imprimirMedicamento(catalogo, ID);//Imprime los datos de un medicamento del catalogo según una ID dada
-            catalogo.eliminarMedicamento(ID);//Elimina un medicamento del catalogo según una ID dada
-            modelo.actualizarArchivo(catalogo);//Actualiza todo el archivo dejandolo exactamente igual a los datos del objeto catalogo de la clase inventario.
+            control.eliminarMedicamento();
             break;
           }
-
-
 
           case 3:{
-            system("clear");
-            ver.imprimirBuscar();   
-            std::cin.ignore();
-            int ID;
-            std::cout<<"Ingrese el ID del medicamento que desea buscar"<<std::endl;
-            std::cin>>ID;
-            ver.imprimirMedicamento(catalogo,ID);
+            control.buscarMedicamento();
             break;
           }
 
-
-
           case 4:{
-            system("clear");
-            ver.imprimirInventario(); 
-            ver.mostrarInventario(catalogo);//Imprime una matriz con los datos de todo el inventario
+            control.mostrarInventario();
             break;
           }    
 
-
-
           case 5:{
-            int ID;
-            std::cout<<"Ingrese el ID del medicamento a cambiar cantidad"<<std::endl;
-            std::cin>>ID;
-            int cantidad;
-            std::cout<<"Ingrese la nueva cantidad"<<std::endl;
-            std::cin>>cantidad;     
-            system("clear");
-            ver.imprimirCantidad();     
-            modelo.cambiarCantidad(catalogo,ID,cantidad);//Cambia la cantidad según un ID y una cantidad dada.
-            modelo.actualizarArchivo(catalogo);
+            control.cambiarCantidad();
             break;
           }  
-       
       }
    }
    else{
@@ -116,7 +68,11 @@ int main() {
     std::cin.ignore();
     std::cin.get();
     
-    system("clear");
+  #ifdef _WIN32
+      system("cls");
+  #else
+      system("clear");
+  #endif
     
   }
   

@@ -8,6 +8,7 @@ public:
 
 Vista();
 void mostrarTituloConNieve();
+void mostrarMenuDeOpciones();
 void imprimirAgregar();
 void imprimirEliminar();
 void imprimirBuscar();
