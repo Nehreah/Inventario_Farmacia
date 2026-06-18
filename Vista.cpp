@@ -1,5 +1,5 @@
 #include "Vista.h"
-#include "MMedicamentos.h"
+#include "Model.h"
 #include "Medicamento.h"
 #include <iostream>
 

@@ -3,7 +3,7 @@
 #include <sstream>
 #include "Inventario.h"
 #include "Medicamento.h"
-#include "MMedicamentos.h"
+#include "Model.h"
 
 #include <iostream>
 #include <chrono>
@@ -14,10 +14,10 @@
 
 
 
-MMedicamentos::MMedicamentos(){
+Model::MMedicamentos(){
 }
 
-void MMedicamentos::cargarArchivo(Inventario& auxCatalogo){//Extrae lineas de un archivo, y las asigna a las variables locales. Luego se crea un objeto con estos parámetros locales. al final agrega el objeto a un inventario.
+void Model::cargarArchivo(Inventario& auxCatalogo){//Extrae lineas de un archivo, y las asigna a las variables locales. Luego se crea un objeto con estos parámetros locales. al final agrega el objeto a un inventario.
   std::string nombre;
   std::string presentacion;
   std::string fecha;
@@ -50,7 +50,7 @@ void MMedicamentos::cargarArchivo(Inventario& auxCatalogo){//Extrae lineas de un
   archivo.close();
 }
 
-void MMedicamentos::guardarArchivo(const Inventario& auxCatalogo){
+void Model::guardarArchivo(const Inventario& auxCatalogo){
   std::string nombre;
   std::string presentacion;
   std::string fecha;
@@ -76,7 +76,7 @@ void MMedicamentos::guardarArchivo(const Inventario& auxCatalogo){
 
 
 
-void MMedicamentos::actualizarArchivo(const Inventario& auxCatalogo){
+void Model::actualizarArchivo(const Inventario& auxCatalogo){
   std::string nombre;
   std::string presentacion;
   std::string fecha;
@@ -101,7 +101,7 @@ void MMedicamentos::actualizarArchivo(const Inventario& auxCatalogo){
 
 
 
-void MMedicamentos::agregarMedicamento(Inventario& auxCatalogo){
+void Model::agregarMedicamento(Inventario& auxCatalogo){
   std::string nombre;
   std::string presentacion;
   std::string fecha;
@@ -140,6 +140,6 @@ void MMedicamentos::agregarMedicamento(Inventario& auxCatalogo){
 
 
 
-void MMedicamentos::cambiarCantidad(Inventario& auxCatalogo,int ID,int cantidad){   
+void Model::cambiarCantidad(Inventario& auxCatalogo,int ID,int cantidad){   
   auxCatalogo.cambiarCantidad(ID,cantidad);
 }

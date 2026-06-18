@@ -1,5 +1,5 @@
 #include "Inventario.h"
-#include "MMedicamentos.h"
+#include "Model.h"
 #include "Vista.h"
 #include <string>
 #include <iostream>
@@ -14,9 +14,9 @@ int main() {
   system("clear");//"system("clear");" limpia la consola
   int eleccion=-1;//en -1 para liberar la opción 0 como salida del programa y los naturales como opciones.
   Inventario catalogo;//Inicio un objeto catalogo
-  MMedicamentos control;//Inicio un objeto de conrtol
+  Model modelo;//Inicio un objeto de modelo
   Vista ver;//Inicio un objeto de visión
-  control.cargarArchivo(catalogo);
+  modelo.cargarArchivo(catalogo);
   
 
 
@@ -48,8 +48,8 @@ int main() {
             system("clear");
             ver.imprimirAgregar();//Muestra un titulo grande que dice "Agregar"
             std::cin.ignore();//Ignora una entrada de teclado
-            control.agregarMedicamento(catalogo);//Agrega un medicamento al catalogo/inventario
-            control.guardarArchivo(catalogo);//Agrega la nueva línea de medicamento al txt
+            modelo.agregarMedicamento(catalogo);//Agrega un medicamento al catalogo/inventario
+            modelo.guardarArchivo(catalogo);//Agrega la nueva línea de medicamento al txt
             break;
           }
 
@@ -65,7 +65,7 @@ int main() {
             std::cout<<"Se ha eliminado el medicamento: "<<std::endl;
             ver.imprimirMedicamento(catalogo, ID);//Imprime los datos de un medicamento del catalogo según una ID dada
             catalogo.eliminarMedicamento(ID);//Elimina un medicamento del catalogo según una ID dada
-            control.actualizarArchivo(catalogo);//Actualiza todo el archivo dejandolo exactamente igual a los datos del objeto catalogo de la clase inventario.
+            modelo.actualizarArchivo(catalogo);//Actualiza todo el archivo dejandolo exactamente igual a los datos del objeto catalogo de la clase inventario.
             break;
           }
 
@@ -102,8 +102,8 @@ int main() {
             std::cin>>cantidad;     
             system("clear");
             ver.imprimirCantidad();     
-            control.cambiarCantidad(catalogo,ID,cantidad);//Cambia la cantidad según un ID y una cantidad dada.
-            control.actualizarArchivo(catalogo);
+            modelo.cambiarCantidad(catalogo,ID,cantidad);//Cambia la cantidad según un ID y una cantidad dada.
+            modelo.actualizarArchivo(catalogo);
             break;
           }  
        

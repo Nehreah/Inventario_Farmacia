@@ -1,6 +1,6 @@
 #ifndef VISTA_H
 #define VISTA_H
-#include "MMedicamentos.h"
+#include "Model.h"
 
 class Vista {
 

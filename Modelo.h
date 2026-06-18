@@ -1,5 +1,5 @@
-#ifndef MMEDICAMENTO_H
-#define MMEDICAMENTO_H
+#ifndef MODEL_H
+#define MODEL_H
 
 
 #include <vector>
@@ -7,7 +7,7 @@
 #include "Inventario.h"
 #include "Medicamento.h"
 
-class MMedicamentos{
+class Model{
 private:
 
 std::string nombreArchivo;
