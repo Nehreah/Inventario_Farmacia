@@ -1,53 +1,90 @@
 @startuml
-class Medicamento{
--ID: int
--Nombre: string
--FormaPresentacion: string
--CantidadDisponible: Int
--CostoCompra:Double
--PrecioVenta: double
 
-+Medicamento(string auxNombre, string auxFormaDePresentacion, int auxCantidadDisponible, double auxCostoCompra, auxPrecioBenta)//Método Constructor
-+getNombre()
-+getFormaDePresentacion()
-+getCantidadDisponible()
-+getCostoCompra()
-+getPrecioVenta()
+' ========== CLASE MEDICAMENTO ==========
+class Medicamento {
+    - nombre: string
+    - presentacion: string
+    - cantidad: int
+    - ID: int
+    - costoCompra: double
+    - precioVenta: double
+    + Medicamento(string, string, int, double, double, int)
+    + getNombreMedicamento(): string
+    + getPresentacionMedicamento(): string
+    + getCantidadMedicamento(): int
+    + getCostoCompraMedicamento(): double
+    + getPrecioVentaMedicamento(): double
+    + getIDMedicamento(): int
+    + setCantidad(int): void
 }
 
-class Inventario{
--MedicamentosFarmacia: Vector Medicamento
-
-+Inventario()
-+setInventario(Medicamento &auxMedicamento)
-+getInventario()
-+elminarMedicamento()
-+actulizarCantidadMedicamento(Medicamento &auxMedicamento)
+' ========== CLASE INVENTARIO ==========
+class Inventario {
+    - medicamentos: vector<Medicamento>
+    - fecha: string
+    + Inventario()
+    + getFecha(): string
+    + getMedicamento(int): Medicamento
+    + getMedicamento(string): Medicamento
+    + agregarMedicamento(Medicamento): void
+    + setFecha(string): void
+    + eliminarMedicamento(int): void
+    + cambiarCantidad(int, int): bool
+    + getSize(): int
 }
 
-dataclass MMedicamentos{
--NombreArchivo: String
--MedicamentosFarmacia: Vector Medicamento
-+MMedicamentos()
-+guardarArchivo(Medicamentos &auxMedicamentos)
-+cargarArchivo()
-+mostrarMedicamentos()
+' ========== CLASE MODELO ==========
+class Modelo {
+    - nombreArchivo: string
+    - catalogo: Inventario
+    + Modelo()
+    + cargarArchivo(): void
+    + guardarArchivo(): void
+    + actualizarArchivo(): void
+    + agregarMedicamento(): void
+    + cambiarCantidad(int, int): void
+    + getCatalogo(): Inventario&
 }
 
-class VMedicamentos{
--MedicamentosFarmacia: Vector Medicamento
-+VMedicamentos()
-+MostrarMedicamentos()
-+MostrarMedicamento(Medicamento auxMedicamentoAMostrar)
+' ========== CLASE CONTROLLER ==========
+class Controller {
+    - ver: Vista&
+    - modelo: Modelo&
+    + Controller(Modelo&, Vista&)
+    + menu(int): int
+    + agregarMedicamento(): void
+    + eliminarMedicamento(): void
+    + buscarMedicamento(): void
+    + mostrarInventario(): void
+    + cambiarCantidad(): void
 }
 
+' ========== CLASE VISTA ==========
+class Vista {
+    + Vista()
+    + mostrarTituloConNieve(): void
+    + mostrarMenuDeOpciones(): void
+    + imprimirAgregar(): void
+    + imprimirEliminar(): void
+    + imprimirBuscar(): void
+    + imprimirInventario(): void
+    + imprimirCantidad(): void
+    + mostrarInventario(Inventario&): void
+    + imprimirMedicamento(Inventario, int): void
+}
 
+' ========== RELACIONES ==========
+Inventario "1" *-- "0..*" Medicamento : contiene >
+Modelo "1" *-- "1" Inventario : contiene >
+Controller --> Vista : usa >
+Controller --> Modelo : usa >
+Vista --> Inventario : muestra >
 
+' ========== ESTEREOTIPOS ==========
+class Medicamento <<entidad>>
+class Inventario <<control>>
+class Modelo <<persistencia>>
+class Controller <<controller>>
+class Vista <<view>>
 
-Inventario *-- Medicamento
-Inventario -- MMedicamentos
-Inventario -- VMedicamentos
-
-
-
-
+@enduml
